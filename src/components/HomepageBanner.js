@@ -1,23 +1,30 @@
-import React from 'react'
-import { Link } from 'gatsby'
+import React from "react";
+import { Link } from "gatsby";
+import { RichText } from "prismic-reactjs";
+import { linkResolver } from "gatsby-source-prismic-graphql";
 
-import homeBanner from '../images/home-banner.jpg'
+import homeBanner from "../images/home-banner.jpg";
 
-const HomepageBanner = () => (
+const HomepageBanner = ({ bannerContent }) => (
   <section
     className="homepage-banner"
-    style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${homeBanner})` }}
+    style={{
+      backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(${homeBanner})`,
+    }}
   >
     <div className="banner-content container">
-      <h2 className="banner-title">John Doe</h2>
+      <h2 className="banner-title">{RichText.asText(bannerContent.title)}</h2>
       <p className="banner-description">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque
-        volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh,
-        viverra non, semper suscipit, posuere a, pede asdf.
+        {RichText.asText(bannerContent.description)}
       </p>
-      <Link to="/about" className="banner-button">Learn More</Link>
+      <Link
+        to={linkResolver(bannerContent.link._meta)}
+        className="banner-button"
+      >
+        {RichText.asText(bannerContent.linkLabel)}
+      </Link>
     </div>
   </section>
-)
+);
 
-export default HomepageBanner
+export default HomepageBanner;

@@ -32,6 +32,8 @@ module.exports = {
       resolve: "gatsby-source-prismic-graphql",
       options: {
         repositoryName: "prismic-authentic-tutorial",
+        path: "/preview",
+        previews: true,
       },
     },
   ],
